@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 //import 'package:betting_mobile_app/HomePage.dart';
 
 class Header extends StatelessWidget {
-  final Function(Map<String, dynamic>) Match;
   
-  const Header({super.key, required this.Match, });
+  
+  const Header({super.key });
 
   Map<String, dynamic> add(Map<String, dynamic> newMatch){
     return {};
@@ -64,9 +64,6 @@ class Header extends StatelessWidget {
                             BuildContext context,
                           ) {
                             return Add(
-                              onAddMatch:(newMatch) {
-                                  Match(newMatch);
-                                },
                               );
                           });
                         },

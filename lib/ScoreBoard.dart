@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
 class ScoreBoard extends StatefulWidget {
   final String homeTeamName;
   final String homeTeamLogo;
@@ -94,7 +92,6 @@ class _ScoreBoardState extends State<ScoreBoard> {
                       widget.matchTime,
                       style: TextStyle(
                         fontSize: 15,
-
                         //fontWeight: FontWeight.bold
                       ),
                     ),

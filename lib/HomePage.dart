@@ -1,10 +1,13 @@
 //import 'package:betting_mobile_app/ScoreAdd.dart';
 import 'package:betting_mobile_app/ScoreBoard.dart';
+import 'package:betting_mobile_app/main.dart';
+import 'package:betting_mobile_app/provider/match_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:betting_mobile_app/SelectionButton.dart';
 import 'package:betting_mobile_app/Data.dart';
 import 'package:betting_mobile_app/SlideScreen.dart';
 import 'package:betting_mobile_app/head.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,35 +20,31 @@ class _HomeScreenState extends State<HomeScreen> {
   bool SwitchButton = false;
   List<Map<String, String>> buttonData = Data().buttonData;
 
-  Data d = Data();
+  //Data d = Data();
 
-  List<Map<String, dynamic>> scoreBoardData = Data().scoreBoardData;
-  
-  
-void addMatch(Map<String, dynamic> newMatch) {
-    setState(() {
-      scoreBoardData.add(newMatch);
-    });
-  }
+  // List<Map<String, dynamic>> scoreBoardData = Data().scoreBoardData;
 
-  void addEvent(Map<String, dynamic> newMatch) {
-    setState(() {
-      scoreBoardData.add(newMatch);
-    });
-  }
+  // void addMatch(Map<String, dynamic> newMatch) {
+  //   setState(() {
+  //     scoreBoardData.add(newMatch);
+  //   });
+  // }
 
-
+  // void addEvent(Map<String, dynamic> newMatch) {
+  //   setState(() {
+  //     scoreBoardData.add(newMatch);
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
-
-
-    print("string");
-    print(scoreBoardData);
+    // print("string");
+    // print(scoreBoardData);
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(backgroundColor: Colors.white,
+      home: Scaffold(
+        backgroundColor: Colors.white,
 
         body: SafeArea(
           child: SingleChildScrollView(
@@ -56,7 +55,7 @@ void addMatch(Map<String, dynamic> newMatch) {
               color: const Color.fromARGB(255, 255, 255, 255),
               child: Column(
                 children: [
-                  Header(Match: addMatch),
+                  Header(),
                   Padding(
                     padding: const EdgeInsets.only(top: 10, left: 20),
                     child: Container(
@@ -89,7 +88,6 @@ void addMatch(Map<String, dynamic> newMatch) {
                               ),
                             ),
                           ),
-                          
                         ],
                       ),
                     ),
@@ -190,20 +188,31 @@ void addMatch(Map<String, dynamic> newMatch) {
                   ),
                   Column(
                     children: [
-                      ...List.generate(scoreBoardData.length, (index) {
-                        return ScoreBoard(
-                          homeTeamName: scoreBoardData[index]["homeTeamName"]??"",
-                          homeTeamLogo: scoreBoardData[index]["homeTeamLogo"]??"",
-                          awayTeamName: scoreBoardData[index]["awayTeamName"]??"",
-                          awayTeamLogo: scoreBoardData[index]["awayTeamLogo"]??"",
-                          leagueName: scoreBoardData[index]["leagueName"]??"",
-                          matchTime: scoreBoardData[index]["matchTime"]??"",
-                          score: scoreBoardData[index]["score"]??"",
-                          homeOdd: scoreBoardData[index]["homeOdd"]??"",
-                          drawOdd: scoreBoardData[index]["drawOdd"]??"",
-                          awayOdd: scoreBoardData[index]["awayOdd"]??"",
-                        );
-                      }),
+                      Consumer<MatchProvider>(
+                        builder: (context, matchProvider, child) {
+                          return Column(
+                            children: List.generate(
+                              matchProvider.scoreBoardData.length,
+                              (index) {
+                                final match =
+                                    matchProvider.scoreBoardData[index];
+                                return ScoreBoard(
+                                  homeTeamName: match["homeTeamName"] ?? "",
+                                  homeTeamLogo: match["homeTeamLogo"] ?? "",
+                                  awayTeamName: match["awayTeamName"] ?? "",
+                                  awayTeamLogo: match["awayTeamLogo"] ?? "",
+                                  leagueName: match["leagueName"] ?? "",
+                                  matchTime: match["matchTime"] ?? "",
+                                  score: match["score"] ?? "",
+                                  homeOdd: match["homeOdd"] ?? "",
+                                  drawOdd: match["drawOdd"] ?? "",
+                                  awayOdd: match["awayOdd"] ?? "",
+                                );
+                              },
+                            ),
+                          );
+                        },
+                      ),
                     ],
                   ),
                 ],

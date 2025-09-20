@@ -1,11 +1,13 @@
+import 'package:betting_mobile_app/provider/match_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:betting_mobile_app/Data.dart';
+import 'package:provider/provider.dart';
 //import 'package:betting_mobile_app/HomePage.dart';
 
 class Add extends StatefulWidget {
-  final Function(Map<String, dynamic>) onAddMatch;
 
-  const Add({super.key, required this.onAddMatch});
+
+  const Add({super.key});
 
   @override
   State<Add> createState() => _AddState();
@@ -40,9 +42,10 @@ class _AddState extends State<Add> {
       "awayOdd": awayOddController.text,
     };
     setState(() {
-      widget.onAddMatch(test);
+      //widget.onAddMatch(test);
       //scoreBoardData.add(test);
       //print(scoreBoardData);
+      context.read<MatchProvider>().addMatch(test);
 
       // Clear fields
       homeTeamController.clear();
