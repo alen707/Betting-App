@@ -1,5 +1,6 @@
 //import 'package:betting_mobile_app/second.dart';
 import 'package:betting_mobile_app/provider/match_provider.dart';
+import 'package:betting_mobile_app/provider/newName_provider.dart';
 import 'package:flutter/material.dart';
 import 'HomePage.dart';
 import 'package:provider/provider.dart';
@@ -7,11 +8,15 @@ import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => MatchProvider(),
-      child: const MyApp(),
+    MultiProvider(providers: [
+      ChangeNotifierProvider(create: (_) => MatchProvider()),
+      ChangeNotifierProvider(create: (_) => NewName())
+    ],
+     child: const MyApp(),
     ),
-  );
+    
+     
+    );
 }
 
 class MyApp extends StatelessWidget {

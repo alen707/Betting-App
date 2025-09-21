@@ -1,18 +1,18 @@
-//import 'package:betting_mobile_app/ScoreAdd.dart';
-import 'package:flutter/material.dart';
-class name extends StatefulWidget {
-  const name({super.key});
+// //import 'package:betting_mobile_app/ScoreAdd.dart';
+// import 'package:flutter/material.dart';
+// class name extends StatefulWidget {
+//   const name({super.key});
 
-  @override
-  State<name> createState() => _nameState();
+//   @override
+//   State<name> createState() => _nameState();
   
-}
-class _nameState extends State<name> { 
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
+// }
+// class _nameState extends State<name> { 
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container();
+//   }
+// }
 
 class Data {
    final List<Map<String, String>> buttonData = [

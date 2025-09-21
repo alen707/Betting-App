@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class MatchProvider with ChangeNotifier{
+class MatchProvider with ChangeNotifier {
   
    final List<Map<String, dynamic>> _scoreBoardData = [
     {
