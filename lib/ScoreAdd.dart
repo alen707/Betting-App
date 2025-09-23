@@ -213,14 +213,14 @@ class _AddState extends State<Add> {
                                   child:Row(
                                     children: [
                                       Image.asset(
-                                        logo["logo"]!, // ✅ show logo image
+                                        logo["logo"]!,
                                         width: 24,
                                         height: 24,
                                       ),
                                       const SizedBox(width: 8),
                                       Text(
                                         logo["name"]!,
-                                      ), // ✅ only use name string
+                                      ), 
                                     ],
                                   ),
                                 );

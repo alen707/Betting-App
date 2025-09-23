@@ -7,10 +7,13 @@ import 'package:provider/provider.dart';
 
 //import 'ScoreAdd.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  final matchProvider =MatchProvider();
+  await matchProvider.loadmatchs();
   runApp(
     MultiProvider(providers: [
-      ChangeNotifierProvider(create: (_) => MatchProvider()),
+      ChangeNotifierProvider.value(value: matchProvider),
       ChangeNotifierProvider(create: (_) => NewName())
     ],
      child: const MyApp(),
