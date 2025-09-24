@@ -1,4 +1,5 @@
 //import 'package:betting_mobile_app/ScoreAdd.dart';
+import 'package:betting_mobile_app/ScoreAdd.dart';
 import 'package:betting_mobile_app/ScoreBoard.dart';
 //import 'package:betting_mobile_app/main.dart';
 import 'package:betting_mobile_app/provider/match_provider.dart';
@@ -196,17 +197,26 @@ class _HomeScreenState extends State<HomeScreen> {
                               (index) {
                                 final match =
                                     matchProvider.scoreBoardData[index];
-                                return ScoreBoard(
-                                  homeTeamName: match["homeTeamName"] ?? "",
-                                  homeTeamLogo: match["homeTeamLogo"] ?? "",
-                                  awayTeamName: match["awayTeamName"] ?? "",
-                                  awayTeamLogo: match["awayTeamLogo"] ?? "",
-                                  leagueName: match["leagueName"] ?? "",
-                                  matchTime: match["matchTime"] ?? "",
-                                  score: match["score"] ?? "",
-                                  homeOdd: match["homeOdd"] ?? "",
-                                  drawOdd: match["drawOdd"] ?? "",
-                                  awayOdd: match["awayOdd"] ?? "",
+                                return InkWell(
+                                  onTap: () {
+                                    print("click on scorebord ");
+                                    Navigator.push(
+                                      context, 
+                                      MaterialPageRoute(builder: (context)=>Add(matchIndex: index, matchData: match,)),
+                                      );
+                                  },
+                                  child: ScoreBoard(
+                                    homeTeamName: match["homeTeamName"] ?? "",
+                                    homeTeamLogo: match["homeTeamLogo"] ?? "",
+                                    awayTeamName: match["awayTeamName"] ?? "",
+                                    awayTeamLogo: match["awayTeamLogo"] ?? "",
+                                    leagueName: match["leagueName"] ?? "",
+                                    matchTime: match["matchTime"] ?? "",
+                                    score: match["score"] ?? "",
+                                    homeOdd: match["homeOdd"] ?? "",
+                                    drawOdd: match["drawOdd"] ?? "",
+                                    awayOdd: match["awayOdd"] ?? "",
+                                  ),
                                 );
                               },
                             ),

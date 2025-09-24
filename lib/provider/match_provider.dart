@@ -3,8 +3,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MatchProvider with ChangeNotifier {
-  
-    List<Map<String, dynamic>> _scoreBoardData = [
+  List<Map<String, dynamic>> _scoreBoardData = [
     // {
     //   "homeTeamName": "Chelsea",
     //   "homeTeamLogo": "assets/images/Chelsea_FC.png",
@@ -29,28 +28,44 @@ class MatchProvider with ChangeNotifier {
     //   "drawOdd": "2.0",
     //   "awayOdd": "1.5",
     // },
-   
-   ];
-    List<Map<String, dynamic>> get scoreBoardData => _scoreBoardData;
+  ];
+  List<Map<String, dynamic>> get scoreBoardData => _scoreBoardData;
 
-    void addMatch(Map<String,dynamic> newMatch){
-      _scoreBoardData.add(newMatch);
+  void addMatch(Map<String, dynamic> newMatch) {
+    _scoreBoardData.add(newMatch);
+    notifyListeners();
+    saveMatchs();
+  }
+  
+  void updateMatch(int index, Map<String, dynamic> updatedMatch) {
+    if (index >= 0 && index < _scoreBoardData.length) {
+      _scoreBoardData[index] = updatedMatch;
       notifyListeners();
       saveMatchs();
     }
+  }
 
-    Future <void> saveMatchs() async{
-      final prefs =await SharedPreferences.getInstance();
-      await prefs.setString('scoreBoardData', jsonEncode(_scoreBoardData));
+  Future<void> saveMatchs() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('scoreBoardData', jsonEncode(_scoreBoardData));
+  }
+
+  Future<void> loadmatchs() async {  
+    final prefs = await SharedPreferences.getInstance();
+    String? data = prefs.getString('scoreBoardData');
+    if (data != null) {
+      _scoreBoardData = List<Map<String, dynamic>>.from(jsonDecode(data));
+      notifyListeners();
     }
+  }
+  Future<void> deleteMatch(int index) async{
 
-    Future<void> loadmatchs() async{
-      final prefs=await SharedPreferences.getInstance();
-      String? data=prefs.getString('scoreBoardData');
-      if (data != null) {
-    _scoreBoardData = List<Map<String, dynamic>>.from(jsonDecode(data));
+    
+    if (index >= 0 && index < _scoreBoardData.length){
+    _scoreBoardData.removeAt(index);
+    }
+    saveMatchs();
     notifyListeners();
-      }
-    }
 
+  }
 }

@@ -81,8 +81,7 @@ class Header extends StatelessWidget {
                             Scaffold.of(context).showBottomSheet((
                               BuildContext context,
                             ) {
-                              return Add(
-                                );
+                              return Add();
                             });
                           },
                         ),
