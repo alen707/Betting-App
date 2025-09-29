@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MatchProvider with ChangeNotifier {
+
+  
   List<Map<String, dynamic>> _scoreBoardData = [
     // {
     //   "homeTeamName": "Chelsea",
@@ -31,11 +33,16 @@ class MatchProvider with ChangeNotifier {
   ];
   List<Map<String, dynamic>> get scoreBoardData => _scoreBoardData;
 
+
+
   void addMatch(Map<String, dynamic> newMatch) {
     _scoreBoardData.add(newMatch);
     notifyListeners();
     saveMatchs();
   }
+
+
+
   
   void updateMatch(int index, Map<String, dynamic> updatedMatch) {
     if (index >= 0 && index < _scoreBoardData.length) {
@@ -45,10 +52,16 @@ class MatchProvider with ChangeNotifier {
     }
   }
 
+
+
+
   Future<void> saveMatchs() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('scoreBoardData', jsonEncode(_scoreBoardData));
   }
+
+
+
 
   Future<void> loadmatchs() async {  
     final prefs = await SharedPreferences.getInstance();
@@ -58,9 +71,10 @@ class MatchProvider with ChangeNotifier {
       notifyListeners();
     }
   }
-  Future<void> deleteMatch(int index) async{
 
-    
+
+
+  Future<void> deleteMatch(int index) async{
     if (index >= 0 && index < _scoreBoardData.length){
     _scoreBoardData.removeAt(index);
     }
@@ -68,4 +82,8 @@ class MatchProvider with ChangeNotifier {
     notifyListeners();
 
   }
+
+
+
+
 }

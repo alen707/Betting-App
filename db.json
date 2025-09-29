@@ -1,7 +1,16 @@
 {
   "tournaments": [
-    { 
-      "id": "1", "title": "a title", "views": 100 
+    {
+      "homeTeamName": "Arsenal",
+      "homeTeamLogo": "assets/images/Arsenal_FC.png",
+      "awayTeamName": "Roma",
+      "awayTeamLogo": "assets/images/roma.png",
+      "leagueName": "UEFA Europa League",
+      "matchTime": "12:42",
+      "score": "0:1",
+      "homeOdd": "1.9",
+      "drawOdd": "2.0",
+      "awayOdd": "1.5"
     }
   ]
 }
