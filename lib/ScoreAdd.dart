@@ -1,3 +1,4 @@
+import 'package:betting_mobile_app/api_connection.dart';
 import 'package:betting_mobile_app/provider/match_provider.dart';
 import 'package:flutter/material.dart';
 //import 'package:betting_mobile_app/Data.dart';
@@ -5,7 +6,7 @@ import 'package:provider/provider.dart';
 //import 'package:betting_mobile_app/HomePage.dart';
 
 class Add extends StatefulWidget {
-  final Map<String,dynamic>? matchData;
+  final Tournaments? matchData;
   final int? matchIndex;
 
 
@@ -48,6 +49,7 @@ class _AddState extends State<Add> {
   final drawOddController = TextEditingController();
   final awayOddController = TextEditingController();
 
+
   Map<String, String>? selectedHomeLogo;
   Map<String, String>? selectedAwayLogo;
 
@@ -56,28 +58,30 @@ class _AddState extends State<Add> {
   void addMatch() {
 
 
-    Map<String, dynamic> test = {
-      "homeTeamName": homeTeamController.text,
-      "homeTeamLogo": selectedHomeLogo?["logo"],
-      "awayTeamName": awayTeamController.text,
-      "awayTeamLogo": selectedAwayLogo?["logo"],
-      "leagueName": leagueController.text,
-      "matchTime": timeController.text,
-      "score": scoreController.text,
-      "homeOdd": homeOddController.text,
-      "drawOdd": drawOddController.text,
-      "awayOdd": awayOddController.text,
-    };
+    final newMatch  = Tournaments(
+       id: widget.matchData?.id ?? DateTime.now().millisecondsSinceEpoch.toString(),
+      homeTeamName: homeTeamController.text,
+      homeTeamLogo: selectedHomeLogo?["logo"]??"",
+      awayTeamName: awayTeamController.text,
+      awayTeamLogo: selectedAwayLogo?["logo"]??"",
+      leagueName: leagueController.text,
+      matchTime: timeController.text,
+      score: scoreController.text,
+      homeOdd: homeOddController.text,
+      drawOdd: drawOddController.text,
+      awayOdd: awayOddController.text,
+      
+    );
 
     
       
     if (widget.matchData == null) {
       // Add new match
-      context.read<MatchProvider>().addMatch(test);
+      context.read<MatchProvider>().addMatch(newMatch);
     } else if (widget.matchIndex != null) {
 
       // Update existing match
-      context.read<MatchProvider>().updateMatch(widget.matchIndex!, test);
+      context.read<MatchProvider>().updateMatch(newMatch.id, newMatch);
     }
 
     Navigator.pop(context);
@@ -93,24 +97,24 @@ class _AddState extends State<Add> {
 
 
 
-      homeTeamController.text = widget.matchData!["homeTeamName"];
-      awayTeamController.text = widget.matchData!["awayTeamName"] ?? '';
-      leagueController.text = widget.matchData!["leagueName"] ?? '';
-      timeController.text = widget.matchData!["matchTime"] ?? '';
-      scoreController.text = widget.matchData!["score"] ?? '';
-      homeOddController.text = widget.matchData!["homeOdd"] ?? '';
-      drawOddController.text = widget.matchData!["drawOdd"] ?? '';
-      awayOddController.text = widget.matchData!["awayOdd"] ?? '';
+      homeTeamController.text = widget.matchData!.homeTeamName;
+      awayTeamController.text = widget.matchData!.awayTeamName;
+      leagueController.text = widget.matchData!.leagueName;
+      timeController.text = widget.matchData!.matchTime;
+      scoreController.text = widget.matchData!.score;
+      homeOddController.text = widget.matchData!.homeOdd;
+      drawOddController.text = widget.matchData!.drawOdd;
+      awayOddController.text = widget.matchData!.awayOdd;
       
 
      
       selectedHomeLogo = teams.firstWhere(
-        (team) => team["logo"] == widget.matchData!["homeTeamLogo"],
+        (team) => team["logo"] == widget.matchData!.homeTeamLogo,
         orElse: () => teams.first,
       );
 
       selectedAwayLogo = teams.firstWhere(
-        (team) => team["logo"] == widget.matchData!["awayTeamLogo"],
+        (team) => team["logo"] == widget.matchData!.awayTeamLogo,
         orElse: () => teams.first,
       );
       // selectedHomeLogo =  selectedHomeLogoDefault;
@@ -169,7 +173,7 @@ class _AddState extends State<Add> {
                       ElevatedButton(
                         onPressed: (){
                           if (widget.matchIndex != null){
-                            context.read<MatchProvider>().deleteMatch(widget.matchIndex!);
+                            context.read<MatchProvider>().deleteMatch(widget.matchData!.id!);
                             Navigator.pop(context);
                           }
 
