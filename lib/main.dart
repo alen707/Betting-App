@@ -1,4 +1,4 @@
-//import 'package:betting_mobile_app/login_page.dart';
+import 'package:betting_mobile_app/login_page.dart';
 import 'package:betting_mobile_app/provider/match_provider.dart';
 import 'package:betting_mobile_app/provider/newName_provider.dart';
 import 'package:flutter/material.dart';
@@ -38,9 +38,10 @@ class MyApp extends StatelessWidget {
       home:
       // Add()
     
-        HomeScreen(),
+        //HomeScreen(),
         //body: SecondScreen(),
-      // Login()
+       Login()
+      
       
     );
   }
