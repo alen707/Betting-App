@@ -1,7 +1,8 @@
-import 'package:betting_mobile_app/HomePage.dart';
+import 'package:betting_mobile_app/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -13,6 +14,8 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final userName = TextEditingController();
   final password = TextEditingController();
+  bool hidePass=true;
+  bool load=false;
 
 
 
@@ -25,6 +28,11 @@ class _LoginState extends State<Login> {
   
     
     if (responese.statusCode==200){
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool("isLoggedIn", true);
+      print(responese.body);
+      
+
       Navigator.pushReplacement(
         context,
        MaterialPageRoute(
@@ -32,12 +40,15 @@ class _LoginState extends State<Login> {
         )
         );
     }else{
-      print("lodin faild");
-      print("lodin faild");
-      print("lodin faild");
-      print("lodin faild");
+      print("login failed");
+      print("login failed");
       
-
+      print("login failed");
+      print("login failed");
+      setState(() {
+        load=!load;
+      });
+      
     }
 
   }
@@ -88,23 +99,48 @@ class _LoginState extends State<Login> {
 
                             SizedBox(height: 10),
                             TextField(
+                              obscureText: hidePass,
                               controller: password,
                               decoration: InputDecoration(
                                 labelText: "Password",
                                 border: OutlineInputBorder(),
+                                suffixIcon: IconButton(
+                                  onPressed: (){
+                                    setState(() {
+                                      if(hidePass==true){
+                                      hidePass=false;
+                                    }else{
+                                      hidePass=true;
+                                    }
+                                    });
+                                  }, 
+                                  icon: Icon(
+                                    hidePass? Icons.visibility:Icons.visibility_off
+                                    )
+                                  )
                               ),
                             ),
 
                             SizedBox(height: 10),
                             ElevatedButton(
-                              onPressed: () {
+                              onPressed: () async{
+                                setState(() {
+                                  load=!load;
+                                });
+                                print("looooooooooodddd");
+                                print("looooooooooodddd");
+                                print("looooooooooodddd");
+
+                                await Future.delayed(const Duration(seconds: 1));
+
                                 login();
+                                
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.deepOrangeAccent,
                                 foregroundColor: Colors.white,
                               ),
-                              child: Text("Login"),
+                              child: load?  CircularProgressIndicator() : Text("Login") ,
                             ),
                           ],
                         ),

@@ -1,6 +1,6 @@
-import 'package:betting_mobile_app/api_connection.dart';
-import 'package:betting_mobile_app/head.dart';
-import 'package:betting_mobile_app/ScoreAdd.dart';
+import 'package:betting_mobile_app/modals/tournaments_modal.dart';
+import 'package:betting_mobile_app/components/head.dart';
+import 'package:betting_mobile_app/components/ScoreAdd.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';

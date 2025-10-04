@@ -1,13 +1,13 @@
 //import 'package:betting_mobile_app/ScoreAdd.dart';
-import 'package:betting_mobile_app/ScoreAdd.dart';
-import 'package:betting_mobile_app/ScoreBoard.dart';
+import 'package:betting_mobile_app/components/ScoreAdd.dart';
+import 'package:betting_mobile_app/components/ScoreBoard.dart';
 //import 'package:betting_mobile_app/main.dart';
 import 'package:betting_mobile_app/provider/match_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:betting_mobile_app/SelectionButton.dart';
-import 'package:betting_mobile_app/Data.dart';
-import 'package:betting_mobile_app/SlideScreen.dart';
-import 'package:betting_mobile_app/head.dart';
+import 'package:betting_mobile_app/components/SelectionButton.dart';
+import 'package:betting_mobile_app/constants/Data.dart';
+import 'package:betting_mobile_app/components/SlideScreen.dart';
+import 'package:betting_mobile_app/components/head.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {

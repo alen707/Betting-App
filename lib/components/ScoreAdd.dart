@@ -1,4 +1,4 @@
-import 'package:betting_mobile_app/api_connection.dart';
+import 'package:betting_mobile_app/modals/tournaments_modal.dart';
 import 'package:betting_mobile_app/provider/match_provider.dart';
 import 'package:flutter/material.dart';
 //import 'package:betting_mobile_app/Data.dart';

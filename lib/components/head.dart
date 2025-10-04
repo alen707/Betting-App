@@ -1,9 +1,12 @@
-import 'package:betting_mobile_app/ChangeName.dart';
-//import 'package:betting_mobile_app/Data.dart';
-import 'package:betting_mobile_app/ScoreAdd.dart';
+import 'package:betting_mobile_app/components/ChangeName.dart';
+import 'package:betting_mobile_app/pages/home_page.dart';
+import 'package:betting_mobile_app/pages/login_page.dart';
+import 'package:betting_mobile_app/components/ScoreAdd.dart';
+import 'package:betting_mobile_app/pages/profile_page.dart';
 import 'package:betting_mobile_app/provider/newName_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'package:betting_mobile_app/HomePage.dart';
 
@@ -34,28 +37,39 @@ class Header extends StatelessWidget {
                 children: [
                   Container(
                     //color: const Color.fromARGB(255, 53, 255, 2),
-                    child: Text(
-                      "Hello,",
-                      style: TextStyle(
-                        //color: const Color.fromARGB(252, 0, 0, 0),
-                        fontSize: 20,
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Hello,",
+                          style: TextStyle(
+                            //color: const Color.fromARGB(252, 0, 0, 0),
+                            fontSize: 20,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
-                        child: Container(
-                          //color: const Color.fromARGB(255, 244, 7, 7),
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Text(
-                              userName,
-                              style: TextStyle(
-                                color: const Color.fromARGB(250, 0, 0, 0),
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,
+                        child: InkWell(
+                          onTap: (){
+                             Navigator.pushReplacement(context, 
+                            MaterialPageRoute(builder: (context)=>Profile()));
+                          },
+                          child: Container(
+                            //color: const Color.fromARGB(255, 244, 7, 7),
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Text(
+                                userName,
+                                style: TextStyle(
+                                  color: const Color.fromARGB(250, 0, 0, 0),
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
