@@ -48,8 +48,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
           Expanded(
             child: Column(
               children: [
-                Container(
-                  //width: 100,
+                SizedBox(
                   height: 100,
                   child: Image.asset(widget.homeTeamLogo, fit: BoxFit.cover),
                 ),
@@ -92,7 +91,6 @@ class _ScoreBoardState extends State<ScoreBoard> {
                       widget.matchTime,
                       style: TextStyle(
                         fontSize: 15,
-                        //fontWeight: FontWeight.bold
                       ),
                     ),
                   ],
@@ -113,8 +111,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
           Expanded(
             child: Column(
               children: [
-                Container(
-                  //width: 75,
+                SizedBox(
                   height: 100,
                   child: Image.asset(widget.awayTeamLogo, fit: BoxFit.cover),
                 ),

@@ -1,38 +1,13 @@
 import 'package:betting_mobile_app/modals/tournaments_modal.dart';
-import 'package:betting_mobile_app/components/head.dart';
-import 'package:betting_mobile_app/components/ScoreAdd.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class MatchProvider with ChangeNotifier {
-  List<Tournaments> _scoreBoardData = [
-    // {
-    //   "homeTeamName": "Chelsea",
-    //   "homeTeamLogo": "assets/images/Chelsea_FC.png",
-    //   "awayTeamName": "Leicester C",
-    //   "awayTeamLogo": "assets/images/Leicester_City_crest.png",
-    //   "leagueName": "Premier League",
-    //   "matchTime": "49:30",
-    //   "score": "1:2",
-    //   "homeOdd": "1.8",
-    //   "drawOdd": "2.1",
-    //   "awayOdd": "1.3",
-    // },
-    // {
-    //   "homeTeamName": "Arsenal",
-    //   "homeTeamLogo": "assets/images/Arsenal_FC.png",
-    //   "awayTeamName": "Roma",
-    //   "awayTeamLogo": "assets/images/roma.png",
-    //   "leagueName": "UEFA Europa League",
-    //   "matchTime": "12:42",
-    //   "score": "0:1",
-    //   "homeOdd": "1.9",
-    //   "drawOdd": "2.0",
-    //   "awayOdd": "1.5",
-    // },
-  ];
+  List<Tournaments> _scoreBoardData = [];
+
+  
   List<Tournaments> get scoreBoardData => _scoreBoardData;
   final String url= "http://192.168.1.66:3000/tournaments";
 
@@ -61,7 +36,7 @@ class MatchProvider with ChangeNotifier {
 
   Future<void> loadmatchs() async {
     final prefs = await SharedPreferences.getInstance();
-    String? data = prefs.getString('scoreBoardData');
+    prefs.getString('scoreBoardData');
     getData();  
     notifyListeners();
     //  if (data != null) {
@@ -86,7 +61,7 @@ class MatchProvider with ChangeNotifier {
 
   Future<void> getData() async {
     try{
-      final response = await http.get(Uri.parse('$url'));
+      final response = await http.get(Uri.parse(url));
 
       if (response.statusCode == 200) {
       
@@ -97,15 +72,16 @@ class MatchProvider with ChangeNotifier {
         
         throw Exception("Failed to load data");
       }
-    }catch (Exception){
-      print("ECEPTOIONNNNNNNN");
+    // ignore: empty_catches
+    }on Exception{
+
     }
   }
 
 
 
   Future<void> postData(Tournaments newMatch) async{
-    final responese= await http.post(Uri.parse('$url'),
+    await http.post(Uri.parse(url),
     headers :{
       "Content-Type" : "application/json",  
     },
@@ -115,14 +91,14 @@ class MatchProvider with ChangeNotifier {
 
 
   Future<void> deleteData(String id) async{
-    final responese= await http.delete(Uri.parse('$url/$id'));
+    await http.delete(Uri.parse('$url/$id'));
     notifyListeners();
     loadmatchs();
   }
 
 
   Future<void> updateData (String id,Tournaments updatedMatch) async{
-    final response= await http.put(Uri.parse("$url/$id"),
+    await http.put(Uri.parse("$url/$id"),
     headers: {
       "content-Type":"application/json",
     },

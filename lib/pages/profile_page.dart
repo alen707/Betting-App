@@ -42,6 +42,7 @@ class Profile extends StatelessWidget {
             final prefs = await SharedPreferences.getInstance();
               await prefs.setBool("isLoggedIn", false); 
 
+            // ignore: use_build_context_synchronously
             Navigator.pushReplacement(context, 
             MaterialPageRoute(builder: (context)=>Login())
               ); 
