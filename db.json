@@ -1,43 +1,17 @@
 {
   "tournaments": [
     {
-      "id": "1759228028235",
-      "homeTeamName": "team2",
-      "homeTeamLogo": "assets/images/Chelsea_FC.png",
-      "awayTeamName": "away2",
-      "awayTeamLogo": "assets/images/Leicester_City_crest.png",
-      "leagueName": "abc",
-      "matchTime": "30:01",
-      "score": "3:0",
-      "homeOdd": "2.9",
-      "drawOdd": "5.5.",
-      "awayOdd": "9.0"
-    },
-    {
-      "id": "1759380529012",
+      "id": "1759572376124",
       "homeTeamName": "team1",
-      "homeTeamLogo": "assets/images/Chelsea_FC.png",
+      "homeTeamLogo": "assets/images/Leicester_City_crest.png",
       "awayTeamName": "away1",
-      "awayTeamLogo": "assets/images/Leicester_City_crest.png",
+      "awayTeamLogo": "assets/images/Arsenal_FC.png",
       "leagueName": "abc",
-      "matchTime": "30:00",
-      "score": "2:1",
-      "homeOdd": "2.2",
-      "drawOdd": "4.4",
-      "awayOdd": "6.6"
-    },
-    {
-      "id": "1759382686579",
-      "homeTeamName": "team3",
-      "homeTeamLogo": "assets/images/Arsenal_FC.png",
-      "awayTeamName": "away3",
-      "awayTeamLogo": "assets/images/roma.png",
-      "leagueName": "abc",
-      "matchTime": "12:40",
-      "score": "4:0",
-      "homeOdd": "3.9",
-      "drawOdd": "8.0",
-      "awayOdd": "2.9"
+      "matchTime": "20:21",
+      "score": "5:4",
+      "homeOdd": "2.5",
+      "drawOdd": "7.9",
+      "awayOdd": "3.3"
     }
   ]
 }
