@@ -1,22 +1,58 @@
+import 'package:betting_mobile_app/api%20connections/profile_api.dart';
 import 'package:betting_mobile_app/components/change_name.dart';
 import 'package:betting_mobile_app/components/score_add.dart';
 import 'package:betting_mobile_app/pages/profile_page.dart';
-import 'package:betting_mobile_app/provider/new_name_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Header extends StatelessWidget {
+
+class Header extends StatefulWidget {
   
+  
+    //  final prefs =  SharedPreferences.getInstance();
+    // final refreshtoken = prefs.getString("refreshtoken") ?? false;
   
   const Header({super.key });
 
+  @override
+  State<Header> createState() => _HeaderState();
+}
+
+class _HeaderState extends State<Header> {
+  String? userName; 
+    @override
+      void initState() {
+    super.initState();
+    loadUsername(); // Load username when widget mounts
+  }
   Map<String, dynamic> add(Map<String, dynamic> newMatch){
+      
     return {};
   }
 
+    Future<void> loadUsername() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (mounted) {
+      setState(() {
+        userName = prefs.getString("username");
+      });
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    final userName = context.watch<NewName>().name;
+  
+    // context.watch<NewName>().username;
+
+    final getProfileData= ProfileApi();
+     Future pro() async{
+            await getProfileData.getProfileData(context);
+              // ignore: use_build_context_synchronously
+              Navigator.pushReplacement(context, 
+              MaterialPageRoute(builder: (context)=>Profile()));
+  }
+
     return SizedBox(
       width: double.infinity,
       child: Column(
@@ -44,13 +80,12 @@ class Header extends StatelessWidget {
                     Expanded(
                       child: InkWell(
                         onTap: (){
-                           Navigator.pushReplacement(context, 
-                          MaterialPageRoute(builder: (context)=>Profile()));
+                         pro();
                         },
                         child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Text(
-                            userName,
+                            userName ??"username" ,
                             style: TextStyle(
                               color: const Color.fromARGB(250, 0, 0, 0),
                               fontSize: 30,
@@ -98,6 +133,8 @@ class Header extends StatelessWidget {
     );
   }
 }
+
+
 
 
 

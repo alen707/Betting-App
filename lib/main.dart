@@ -1,6 +1,7 @@
 import 'package:betting_mobile_app/pages/login_page.dart';
 import 'package:betting_mobile_app/provider/match_provider.dart';
 import 'package:betting_mobile_app/provider/new_name_provider.dart';
+import 'package:betting_mobile_app/provider/profile_provider.dart';
 import 'package:flutter/material.dart';
 import 'pages/home_page.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +21,8 @@ void main() async{
   runApp(
     MultiProvider(providers: [
       ChangeNotifierProvider.value(value: matchProvider),
-      ChangeNotifierProvider(create: (_) => NewName())
+      ChangeNotifierProvider(create: (_) => NewName()),
+      ChangeNotifierProvider(create: (_)=> Profileinfo())
     ],
      child:  MyApp(isLoggedIn:isLoggedIn),
     ),

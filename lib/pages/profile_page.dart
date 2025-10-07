@@ -1,7 +1,9 @@
 
 import 'package:betting_mobile_app/pages/home_page.dart';
 import 'package:betting_mobile_app/pages/login_page.dart';
+import 'package:betting_mobile_app/provider/profile_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatelessWidget {
@@ -9,6 +11,15 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final String? userName = context.watch<Profileinfo>().username;
+    final String? email = context.watch<Profileinfo>().email;
+    final String? firstName = context.watch<Profileinfo>().firstname;
+    final String? lastName = context.watch<Profileinfo>().lastname;
+    final String? gender = context.watch<Profileinfo>().gender;
+
+
+    
     return Scaffold(
 
 
@@ -74,7 +85,7 @@ class Profile extends StatelessWidget {
                       color: Colors.deepOrange
                     ),
                   ),
-                  Text("name",
+                  Text(userName ?? "username",
                   style: TextStyle(
                       fontSize: 23
                     ),
@@ -92,11 +103,15 @@ class Profile extends StatelessWidget {
                       color: Colors.deepOrange
                     ),
                   ),
-                  Text("email",
-                  style: TextStyle(
-                      fontSize: 23,
-                    ),
-                    )
+                  Expanded(
+                    child: Text(email ??"email",
+                    style: TextStyle(
+                        fontSize: 23
+                      ),
+                      softWrap: true,
+                      
+                      ),
+                  )
                 ],
               ),
                     
@@ -110,7 +125,7 @@ class Profile extends StatelessWidget {
                       color: Colors.deepOrange
                     ),
                   ),
-                  Text("firstname",
+                  Text(firstName ?? "firstname",
                   style: TextStyle(
                       fontSize: 23
                     ),
@@ -128,7 +143,7 @@ class Profile extends StatelessWidget {
                       color: Colors.deepOrange
                     ),
                   ),
-                  Text("lastname",
+                  Text(lastName ?? "lastname",
                   style: TextStyle(
                       fontSize: 23
                     ),
@@ -146,7 +161,7 @@ class Profile extends StatelessWidget {
                       color: Colors.deepOrange
                     ),
                   ),
-                  Text("genter",
+                  Text(gender ?? "genter",
                   style: TextStyle(
                       fontSize: 23
                     ),

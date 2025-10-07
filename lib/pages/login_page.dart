@@ -1,4 +1,5 @@
 import 'package:betting_mobile_app/api%20connections/login_api.dart';
+import 'package:betting_mobile_app/api%20connections/profile_api.dart';
 import 'package:betting_mobile_app/pages/home_page.dart';
 import 'package:flutter/material.dart';
 class Login extends StatefulWidget {
@@ -10,18 +11,23 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
 
-  final userName = TextEditingController();
-  final password = TextEditingController();
+  final userName = TextEditingController(text: "emilys");
+  final password = TextEditingController(text: "emilyspass");
   bool hidePass=true;
   bool load=false;
+  final getProfileData= ProfileApi();
+
+  
 
   Future<void> login() async {
 
   final login=LoginApi();
-  final test= await login.login(userName, password);
-
+  final test= await login.login(userName, password,context);
     // ignore: unrelated_type_equality_checks
     if (test == true){
+      // ignore: use_build_context_synchronously
+      await getProfileData.getProfileData(context);
+      // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
         // ignore: use_build_context_synchronously
         context,

@@ -1,6 +1,6 @@
-import 'package:betting_mobile_app/provider/new_name_provider.dart';
+//import 'package:betting_mobile_app/provider/new_name_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+//import 'package:provider/provider.dart';
 
 class UserPopUp extends StatelessWidget {
   final TextEditingController nameController= TextEditingController();
@@ -28,8 +28,8 @@ class UserPopUp extends StatelessWidget {
             actions: [
               TextButton(
                 onPressed:(){
-                  Provider.of<NewName>(context, listen: false)
-                  .add(nameController.text);
+                  // Provider.of<NewName>(context, listen: false)
+                  // .add(nameController.text);
 
                   Navigator.of(context).pop();
                 },
