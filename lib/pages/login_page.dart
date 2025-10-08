@@ -2,6 +2,7 @@ import 'package:betting_mobile_app/api%20connections/login_api.dart';
 import 'package:betting_mobile_app/api%20connections/profile_api.dart';
 import 'package:betting_mobile_app/pages/home_page.dart';
 import 'package:flutter/material.dart';
+
 class Login extends StatefulWidget {
   const Login({super.key});
 
@@ -10,44 +11,31 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
   final userName = TextEditingController(text: "emilys");
   final password = TextEditingController(text: "emilyspass");
-  bool hidePass=true;
-  bool load=false;
-  final getProfileData= ProfileApi();
-
-  
+  bool hidePass = true;
+  bool load = false;
+  final getProfileData = ProfileApi();
 
   Future<void> login() async {
-
-  final login=LoginApi();
-  final test= await login.login(userName, password,context);
+    final login = LoginApi();
+    final test = await login.login(userName, password, context);
     // ignore: unrelated_type_equality_checks
-    if (test == true){
+    if (test == true) {
       // ignore: use_build_context_synchronously
-      await getProfileData.getProfileData(context);
+      await getProfileData.getProfileData();
       // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
         // ignore: use_build_context_synchronously
         context,
-       MaterialPageRoute(
-        builder: (context)=>HomeScreen()
-        )
-        );
-    }
-    else{
-      setState(() {
-        load=!load;
-        }
+        MaterialPageRoute(builder: (context) => HomeScreen()),
       );
-
-      
+    } else {
+      setState(() {
+        load = !load;
+      });
     }
-
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -56,16 +44,13 @@ class _LoginState extends State<Login> {
         child: Center(
           child: Padding(
             padding: const EdgeInsets.only(left: 30, right: 30),
-          
+
             child: Center(
               child: Container(
                 height: 275,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: Colors.deepOrangeAccent,
-                    width: 5,
-                  ),
+                  border: Border.all(color: Colors.deepOrangeAccent, width: 5),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
@@ -89,7 +74,7 @@ class _LoginState extends State<Login> {
                               border: OutlineInputBorder(),
                             ),
                           ),
-          
+
                           SizedBox(height: 10),
                           TextField(
                             obscureText: hidePass,
@@ -98,39 +83,42 @@ class _LoginState extends State<Login> {
                               labelText: "Password",
                               border: OutlineInputBorder(),
                               suffixIcon: IconButton(
-                                onPressed: (){
+                                onPressed: () {
                                   setState(() {
-                                    if(hidePass==true){
-                                    hidePass=false;
-                                  }else{
-                                    hidePass=true;
-                                  }
+                                    if (hidePass == true) {
+                                      hidePass = false;
+                                    } else {
+                                      hidePass = true;
+                                    }
                                   });
-                                }, 
+                                },
                                 icon: Icon(
-                                  hidePass? Icons.visibility:Icons.visibility_off
-                                  )
-                                )
+                                  hidePass
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                ),
+                              ),
                             ),
                           ),
-          
+
                           SizedBox(height: 10),
                           ElevatedButton(
-                            onPressed: () async{
+                            onPressed: () async {
                               setState(() {
-                                load=!load;
+                                load = !load;
                               });
-          
+
                               await Future.delayed(const Duration(seconds: 1));
-          
+
                               login();
-                              
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.deepOrangeAccent,
                               foregroundColor: Colors.white,
                             ),
-                            child: load?  CircularProgressIndicator() : Text("Login") ,
+                            child: load
+                                ? CircularProgressIndicator()
+                                : Text("Login"),
                           ),
                         ],
                       ),

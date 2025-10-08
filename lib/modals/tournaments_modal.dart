@@ -11,20 +11,19 @@ class Tournaments {
   final String drawOdd;
   final String awayOdd;
 
-
-Tournaments({
-  required this.id,
-  required this.homeTeamName,
-  required this.homeTeamLogo,
-  required this.awayTeamName,
-  required this.awayTeamLogo,
-  required this.leagueName,
-  required this.matchTime,
-  required this.score,
-  required this.homeOdd,
-  required this.drawOdd,
-  required this.awayOdd,
-});
+  Tournaments({
+    required this.id,
+    required this.homeTeamName,
+    required this.homeTeamLogo,
+    required this.awayTeamName,
+    required this.awayTeamLogo,
+    required this.leagueName,
+    required this.matchTime,
+    required this.score,
+    required this.homeOdd,
+    required this.drawOdd,
+    required this.awayOdd,
+  });
 
   factory Tournaments.fromJson(Map<String, dynamic> json) {
     return Tournaments(
@@ -42,8 +41,7 @@ Tournaments({
     );
   }
 
-
- Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'id': id,
       'homeTeamName': homeTeamName,
@@ -58,5 +56,4 @@ Tournaments({
       'awayOdd': awayOdd,
     };
   }
-
 }

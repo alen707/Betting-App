@@ -87,12 +87,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    Text(
-                      widget.matchTime,
-                      style: TextStyle(
-                        fontSize: 15,
-                      ),
-                    ),
+                    Text(widget.matchTime, style: TextStyle(fontSize: 15)),
                   ],
                 ),
                 Container(

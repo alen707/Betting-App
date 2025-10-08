@@ -18,7 +18,7 @@ class Slide extends StatelessWidget {
                   SizedBox(
                     width: 350,
                     height: 200,
-      
+
                     child: Column(
                       children: [
                         Expanded(
@@ -65,9 +65,7 @@ class Slide extends StatelessWidget {
                                     height: 30,
                                     decoration: BoxDecoration(
                                       color: Colors.white,
-                                      borderRadius: BorderRadius.circular(
-                                        5,
-                                      ),
+                                      borderRadius: BorderRadius.circular(5),
                                     ),
                                     child: Center(
                                       child: IconButton(
@@ -159,12 +157,7 @@ class Slide extends StatelessWidget {
                         child: Text(
                           "UEFA EUROPA \nLEAGUE",
                           style: TextStyle(
-                            color: const Color.fromARGB(
-                              190,
-                              255,
-                              255,
-                              255,
-                            ),
+                            color: const Color.fromARGB(190, 255, 255, 255),
                             fontWeight: FontWeight.bold,
                             fontSize: 25,
                           ),

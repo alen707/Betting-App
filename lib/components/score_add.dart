@@ -7,36 +7,19 @@ class Add extends StatefulWidget {
   final Tournaments? matchData;
   final int? matchIndex;
 
-
-  const Add({super.key,this.matchData,this.matchIndex});
+  const Add({super.key, this.matchData, this.matchIndex});
 
   @override
   State<Add> createState() => _AddState();
 }
 
 class _AddState extends State<Add> {
-
-
-  List<Map<String,String>> teams = [
-    {
-      "name": "Chelsea",
-      "logo": "assets/images/Chelsea_FC.png",
-    },
-    {
-      "name": "Leicester C",
-      "logo":
-          "assets/images/Leicester_City_crest.png",
-    },
-    {
-      "name": "Arsenal",
-      "logo": "assets/images/Arsenal_FC.png",
-    },
-    {
-      "name": "Roma",
-      "logo": "assets/images/roma.png",
-    },
+  List<Map<String, String>> teams = [
+    {"name": "Chelsea", "logo": "assets/images/Chelsea_FC.png"},
+    {"name": "Leicester C", "logo": "assets/images/Leicester_City_crest.png"},
+    {"name": "Arsenal", "logo": "assets/images/Arsenal_FC.png"},
+    {"name": "Roma", "logo": "assets/images/roma.png"},
   ];
-
 
   final homeTeamController = TextEditingController();
   final awayTeamController = TextEditingController();
@@ -47,36 +30,30 @@ class _AddState extends State<Add> {
   final drawOddController = TextEditingController();
   final awayOddController = TextEditingController();
 
-
   Map<String, String>? selectedHomeLogo;
   Map<String, String>? selectedAwayLogo;
 
-
   void addMatch() {
-
-
-    final newMatch  = Tournaments(
-       id: widget.matchData?.id ?? DateTime.now().millisecondsSinceEpoch.toString(),
+    final newMatch = Tournaments(
+      id:
+          widget.matchData?.id ??
+          DateTime.now().millisecondsSinceEpoch.toString(),
       homeTeamName: homeTeamController.text,
-      homeTeamLogo: selectedHomeLogo?["logo"]??"",
+      homeTeamLogo: selectedHomeLogo?["logo"] ?? "",
       awayTeamName: awayTeamController.text,
-      awayTeamLogo: selectedAwayLogo?["logo"]??"",
+      awayTeamLogo: selectedAwayLogo?["logo"] ?? "",
       leagueName: leagueController.text,
       matchTime: timeController.text,
       score: scoreController.text,
       homeOdd: homeOddController.text,
       drawOdd: drawOddController.text,
       awayOdd: awayOddController.text,
-      
     );
 
-    
-      
     if (widget.matchData == null) {
       // Add new match
       context.read<MatchProvider>().addMatch(newMatch);
     } else if (widget.matchIndex != null) {
-
       // Update existing match
       context.read<MatchProvider>().updateMatch(newMatch.id, newMatch);
     }
@@ -84,16 +61,11 @@ class _AddState extends State<Add> {
     Navigator.pop(context);
   }
 
-
-
   @override
-  void initState(){ 
+  void initState() {
     super.initState();
-    
+
     if (widget.matchData != null) {
-
-
-
       homeTeamController.text = widget.matchData!.homeTeamName;
       awayTeamController.text = widget.matchData!.awayTeamName;
       leagueController.text = widget.matchData!.leagueName;
@@ -102,9 +74,7 @@ class _AddState extends State<Add> {
       homeOddController.text = widget.matchData!.homeOdd;
       drawOddController.text = widget.matchData!.drawOdd;
       awayOddController.text = widget.matchData!.awayOdd;
-      
 
-     
       selectedHomeLogo = teams.firstWhere(
         (team) => team["logo"] == widget.matchData!.homeTeamLogo,
         orElse: () => teams.first,
@@ -114,18 +84,8 @@ class _AddState extends State<Add> {
         (team) => team["logo"] == widget.matchData!.awayTeamLogo,
         orElse: () => teams.first,
       );
-    
-
-
-
-
-
-    }  else if (widget.matchIndex == null) {
-
-     
-    }
+    } else if (widget.matchIndex == null) {}
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -133,17 +93,14 @@ class _AddState extends State<Add> {
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Padding(
-          padding: const EdgeInsets.only(
-            top: 10,
-            bottom: 30
-          ),
+          padding: const EdgeInsets.only(top: 10, bottom: 30),
           child: Container(
             width: double.infinity,
             decoration: BoxDecoration(
               color: Color.fromARGB(255, 255, 255, 255),
               borderRadius: BorderRadius.circular(20),
             ),
-                
+
             child: Padding(
               padding: const EdgeInsets.only(top: 35, left: 10, right: 10),
               child: Column(
@@ -156,7 +113,12 @@ class _AddState extends State<Add> {
                       children: [
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 255, 86, 34),
+                            backgroundColor: const Color.fromARGB(
+                              255,
+                              255,
+                              86,
+                              34,
+                            ),
                           ),
                           onPressed: () {
                             Navigator.pop(context);
@@ -167,26 +129,32 @@ class _AddState extends State<Add> {
                           ),
                         ),
                         if (widget.matchData != null)
-                        ElevatedButton(
-                          onPressed: (){
-                            if (widget.matchIndex != null){
-                              context.read<MatchProvider>().deleteMatch(widget.matchData!.id);
-                              Navigator.pop(context);
-                            }
-          
-                          }, 
-                          child:Text("Delete"),
+                          ElevatedButton(
+                            onPressed: () {
+                              if (widget.matchIndex != null) {
+                                context.read<MatchProvider>().deleteMatch(
+                                  widget.matchData!.id,
+                                );
+                                Navigator.pop(context);
+                              }
+                            },
+                            child: Text("Delete"),
                           ),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 255, 86, 34),
+                            backgroundColor: const Color.fromARGB(
+                              255,
+                              255,
+                              86,
+                              34,
+                            ),
                           ),
                           onPressed: () {
                             addMatch();
                             // Navigator.pop(context);
                           },
-                          child:  Text(
-                            widget.matchData == null ?'+ADD':"update",
+                          child: Text(
+                            widget.matchData == null ? '+ADD' : "update",
                             style: TextStyle(fontSize: 15, color: Colors.white),
                           ),
                         ),
@@ -208,8 +176,7 @@ class _AddState extends State<Add> {
                           ),
                         ),
                         Text("HomeTeam Name:", style: TextStyle(fontSize: 20)),
-                        TextField(controller: homeTeamController,
-                        ),
+                        TextField(controller: homeTeamController),
                         Text("HomeTeam Logo:", style: TextStyle(fontSize: 20)),
                         SizedBox(
                           height: 50,
@@ -217,22 +184,17 @@ class _AddState extends State<Add> {
                           child: DropdownButton(
                             value: selectedHomeLogo,
                             items: teams.map((logo) {
-                                  return DropdownMenuItem(
-                                    value: logo,
-                                    child: Row(
-                                      children: [
-                                        Image.asset(
-                                          logo["logo"]!, 
-                                          height: 24,
-                                        ),
-                                        const SizedBox(width: 8),
-                                        Text(
-                                          logo["name"]!,
-                                        ), 
-                                      ],
-                                    ),
-                                  );
-                                }).toList(),
+                              return DropdownMenuItem(
+                                value: logo,
+                                child: Row(
+                                  children: [
+                                    Image.asset(logo["logo"]!, height: 24),
+                                    const SizedBox(width: 8),
+                                    Text(logo["name"]!),
+                                  ],
+                                ),
+                              );
+                            }).toList(),
                             onChanged: (value) {
                               setState(() {
                                 selectedHomeLogo = value;
@@ -241,9 +203,10 @@ class _AddState extends State<Add> {
                             hint: Text(
                               "Choose a Team",
                               style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600),
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                         ),
@@ -255,24 +218,22 @@ class _AddState extends State<Add> {
                           width: double.infinity,
                           child: DropdownButton(
                             value: selectedAwayLogo,
-                            items:teams.map((logo) {
-                                  return DropdownMenuItem(
-                                    value: logo,
-                                    child:Row(
-                                      children: [
-                                        Image.asset(
-                                          logo["logo"]!,
-                                          width: 24,
-                                          height: 24,
-                                        ),
-                                        const SizedBox(width: 8),
-                                        Text(
-                                          logo["name"]!,
-                                        ), 
-                                      ],
+                            items: teams.map((logo) {
+                              return DropdownMenuItem(
+                                value: logo,
+                                child: Row(
+                                  children: [
+                                    Image.asset(
+                                      logo["logo"]!,
+                                      width: 24,
+                                      height: 24,
                                     ),
-                                  );
-                                }).toList(),
+                                    const SizedBox(width: 8),
+                                    Text(logo["name"]!),
+                                  ],
+                                ),
+                              );
+                            }).toList(),
                             onChanged: (value) {
                               setState(() {
                                 selectedAwayLogo = value;
@@ -281,9 +242,10 @@ class _AddState extends State<Add> {
                             hint: Text(
                               "Choose a Team",
                               style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600),
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                         ),

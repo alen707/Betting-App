@@ -43,8 +43,18 @@ class _ChoiceState extends State<Choice> {
               child: Row(
                 children: [
                   widget.cho
-                      ? Image.asset(widget.imageOn, width: 30, height: 30,color: const Color.fromARGB(255, 255, 255, 255),)
-                      : Image.asset(widget.imageOff, width: 30, height: 30,color: Colors.grey,),
+                      ? Image.asset(
+                          widget.imageOn,
+                          width: 30,
+                          height: 30,
+                          color: const Color.fromARGB(255, 255, 255, 255),
+                        )
+                      : Image.asset(
+                          widget.imageOff,
+                          width: 30,
+                          height: 30,
+                          color: Colors.grey,
+                        ),
                   widget.cho
                       ? Text(
                           widget.name,

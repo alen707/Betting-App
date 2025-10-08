@@ -16,12 +16,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-
   int selectIndex = 0;
   bool switchButton = false;
   List<Map<String, String>> buttonData = Data().buttonData;
-
 
   @override
   Widget build(BuildContext context) {
@@ -170,9 +167,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                 return InkWell(
                                   onTap: () {
                                     Navigator.push(
-                                      context, 
-                                      MaterialPageRoute(builder: (context)=>Add(matchIndex: index, matchData: match,)),
-                                      );
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Add(
+                                          matchIndex: index,
+                                          matchData: match,
+                                        ),
+                                      ),
+                                    );
                                   },
                                   child: ScoreBoard(
                                     homeTeamName: match.homeTeamName,

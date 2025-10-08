@@ -1,7 +1,5 @@
-
-
 class Data {
-   final List<Map<String, String>> buttonData = [
+  final List<Map<String, String>> buttonData = [
     {
       "name": "football",
       "imageOn": "assets/images/football_black.png",
@@ -59,7 +57,5 @@ class Data {
       "drawOdd": "2.0",
       "awayOdd": "1.5",
     },
-   
-    
   ];
 }

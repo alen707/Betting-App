@@ -9,49 +9,44 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'ScoreAdd.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final matchProvider =MatchProvider();
+  final matchProvider = MatchProvider();
   await matchProvider.loadmatchs();
 
-    //WidgetsFlutterBinding.ensureInitialized();
+  //WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
   bool isLoggedIn = prefs.getBool("isLoggedIn") ?? false;
 
   runApp(
-    MultiProvider(providers: [
-      ChangeNotifierProvider.value(value: matchProvider),
-      ChangeNotifierProvider(create: (_) => NewName()),
-      ChangeNotifierProvider(create: (_)=> Profileinfo())
-    ],
-     child:  MyApp(isLoggedIn:isLoggedIn),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: matchProvider),
+        ChangeNotifierProvider(create: (_) => NewName()),
+        ChangeNotifierProvider(create: (_) => Profileinfo()),
+      ],
+      child: MyApp(isLoggedIn: isLoggedIn),
     ),
-    
-     
-    );
+  );
 }
 
 class MyApp extends StatelessWidget {
   final bool isLoggedIn;
-  const MyApp({super.key,required this.isLoggedIn});
+  const MyApp({super.key, required this.isLoggedIn});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-          
-      
-  
       debugShowCheckedModeBanner: false,
-      
-      
+
       home: isLoggedIn ? HomeScreen() : Login(),
+
       // Add()
-    
-        //HomeScreen(),
-        //body: SecondScreen(),
-       //Login()
+
+      //HomeScreen(),
+      //body: SecondScreen(),
+      //Login()
       //home: Profile(),
-      
     );
   }
 }
