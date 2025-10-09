@@ -23,7 +23,7 @@ class _LoginState extends State<Login> {
     // ignore: unrelated_type_equality_checks
     if (test == true) {
       // ignore: use_build_context_synchronously
-      await getProfileData.getProfileData();
+      await getProfileData.profileApi();
       // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
         // ignore: use_build_context_synchronously

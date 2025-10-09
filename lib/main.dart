@@ -23,7 +23,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider.value(value: matchProvider),
         ChangeNotifierProvider(create: (_) => NewName()),
-        ChangeNotifierProvider(create: (_) => Profileinfo()),
+        ChangeNotifierProvider(create: (_) => ProfileinfoProvider()),
       ],
       child: MyApp(isLoggedIn: isLoggedIn),
     ),

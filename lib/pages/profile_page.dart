@@ -16,19 +16,22 @@ class _ProfileState extends State<Profile> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() {
-      // ignore: use_build_context_synchronously
-      context.read<Profileinfo>().callingapi();
-    });
+    fetchProfile();
+  }
+
+  Future<void> fetchProfile() async {
+    final profileinfoprovider = Provider.of<ProfileinfoProvider>(
+      context,
+      listen: false,
+    );
+    await profileinfoprovider.callingapi();
   }
 
   @override
   Widget build(BuildContext context) {
-    final String? userName = context.watch<Profileinfo>().username;
-    final String? email = context.watch<Profileinfo>().email;
-    final String? firstName = context.watch<Profileinfo>().firstname;
-    final String? lastName = context.watch<Profileinfo>().lastname;
-    final String? gender = context.watch<Profileinfo>().gender;
+    final profileinfo = context.watch<ProfileinfoProvider>();
+    final data = profileinfo.data;
+    final isload = profileinfo.isload;
 
     return Scaffold(
       appBar: AppBar(
@@ -62,6 +65,7 @@ class _ProfileState extends State<Profile> {
 
               // ignore: use_build_context_synchronously
               Navigator.pushReplacement(
+                // ignore: use_build_context_synchronously
                 context,
                 MaterialPageRoute(builder: (context) => Login()),
               );
@@ -71,79 +75,105 @@ class _ProfileState extends State<Profile> {
         ],
       ),
 
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 15, right: 15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 20),
-              Row(
-                children: [
-                  Text(
-                    "UserName : ",
-                    style: TextStyle(fontSize: 23, color: Colors.deepOrange),
-                  ),
-                  Text(userName ?? "username", style: TextStyle(fontSize: 23)),
-                ],
-              ),
-
-              SizedBox(height: 20),
-              Row(
-                children: [
-                  Text(
-                    "Email          : ",
-                    style: TextStyle(fontSize: 23, color: Colors.deepOrange),
-                  ),
-                  Expanded(
-                    child: Text(
-                      email ?? "email",
-                      style: TextStyle(fontSize: 23),
-                      softWrap: true,
+      body: isload || data == null
+          ? SafeArea(child: Center(child: CircularProgressIndicator()))
+          : SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 15, right: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Text(
+                          "UserName : ",
+                          style: TextStyle(
+                            fontSize: 23,
+                            color: Colors.deepOrange,
+                          ),
+                        ),
+                        Text(
+                          data.username ?? "username",
+                          style: TextStyle(fontSize: 23),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
 
-              SizedBox(height: 20),
-              Row(
-                children: [
-                  Text(
-                    "First Name : ",
-                    style: TextStyle(fontSize: 23, color: Colors.deepOrange),
-                  ),
-                  Text(
-                    firstName ?? "firstname",
-                    style: TextStyle(fontSize: 23),
-                  ),
-                ],
-              ),
+                    SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Text(
+                          "Email          : ",
+                          style: TextStyle(
+                            fontSize: 23,
+                            color: Colors.deepOrange,
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            data.email ?? "email",
+                            style: TextStyle(fontSize: 23),
+                            softWrap: true,
+                          ),
+                        ),
+                      ],
+                    ),
 
-              SizedBox(height: 20),
-              Row(
-                children: [
-                  Text(
-                    "Last Name : ",
-                    style: TextStyle(fontSize: 23, color: Colors.deepOrange),
-                  ),
-                  Text(lastName ?? "lastname", style: TextStyle(fontSize: 23)),
-                ],
-              ),
+                    SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Text(
+                          "First Name : ",
+                          style: TextStyle(
+                            fontSize: 23,
+                            color: Colors.deepOrange,
+                          ),
+                        ),
+                        Text(
+                          data.firstName ?? "firstname",
+                          style: TextStyle(fontSize: 23),
+                        ),
+                      ],
+                    ),
 
-              SizedBox(height: 20),
-              Row(
-                children: [
-                  Text(
-                    "Genter        : ",
-                    style: TextStyle(fontSize: 23, color: Colors.deepOrange),
-                  ),
-                  Text(gender ?? "genter", style: TextStyle(fontSize: 23)),
-                ],
+                    SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Text(
+                          "Last Name : ",
+                          style: TextStyle(
+                            fontSize: 23,
+                            color: Colors.deepOrange,
+                          ),
+                        ),
+                        Text(
+                          data.lastName ?? "lastname",
+                          style: TextStyle(fontSize: 23),
+                        ),
+                      ],
+                    ),
+
+                    SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Text(
+                          "Genter        : ",
+                          style: TextStyle(
+                            fontSize: 23,
+                            color: Colors.deepOrange,
+                          ),
+                        ),
+                        Text(
+                          data.gender ?? "genter",
+                          style: TextStyle(fontSize: 23),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }

@@ -89,182 +89,208 @@ class _AddState extends State<Add> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 10, bottom: 30),
-          child: Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: Color.fromARGB(255, 255, 255, 255),
-              borderRadius: BorderRadius.circular(20),
-            ),
-
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: SafeArea(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
             child: Padding(
-              padding: const EdgeInsets.only(top: 35, left: 10, right: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(
-                              255,
-                              255,
-                              86,
-                              34,
-                            ),
-                          ),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text(
-                            '< Back',
-                            style: TextStyle(fontSize: 15, color: Colors.white),
-                          ),
-                        ),
-                        if (widget.matchData != null)
-                          ElevatedButton(
-                            onPressed: () {
-                              if (widget.matchIndex != null) {
-                                context.read<MatchProvider>().deleteMatch(
-                                  widget.matchData!.id,
-                                );
+              padding: const EdgeInsets.only(top: 10, bottom: 30),
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 35, left: 10, right: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color.fromARGB(
+                                  255,
+                                  255,
+                                  86,
+                                  34,
+                                ),
+                              ),
+                              onPressed: () {
                                 Navigator.pop(context);
-                              }
-                            },
-                            child: Text("Delete"),
-                          ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(
-                              255,
-                              255,
-                              86,
-                              34,
-                            ),
-                          ),
-                          onPressed: () {
-                            addMatch();
-                            // Navigator.pop(context);
-                          },
-                          child: Text(
-                            widget.matchData == null ? '+ADD' : "update",
-                            style: TextStyle(fontSize: 15, color: Colors.white),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Center(
-                          child: Text(
-                            "ADD SCORE",
-                            style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        Text("HomeTeam Name:", style: TextStyle(fontSize: 20)),
-                        TextField(controller: homeTeamController),
-                        Text("HomeTeam Logo:", style: TextStyle(fontSize: 20)),
-                        SizedBox(
-                          height: 50,
-                          width: double.infinity,
-                          child: DropdownButton(
-                            value: selectedHomeLogo,
-                            items: teams.map((logo) {
-                              return DropdownMenuItem(
-                                value: logo,
-                                child: Row(
-                                  children: [
-                                    Image.asset(logo["logo"]!, height: 24),
-                                    const SizedBox(width: 8),
-                                    Text(logo["name"]!),
-                                  ],
+                              },
+                              child: const Text(
+                                '< Back',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.white,
                                 ),
-                              );
-                            }).toList(),
-                            onChanged: (value) {
-                              setState(() {
-                                selectedHomeLogo = value;
-                              });
-                            },
-                            hint: Text(
-                              "Choose a Team",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
                               ),
                             ),
-                          ),
+                            if (widget.matchData != null)
+                              ElevatedButton(
+                                onPressed: () {
+                                  if (widget.matchIndex != null) {
+                                    context.read<MatchProvider>().deleteMatch(
+                                      widget.matchData!.id,
+                                    );
+                                    Navigator.pop(context);
+                                  }
+                                },
+                                child: Text("Delete"),
+                              ),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color.fromARGB(
+                                  255,
+                                  255,
+                                  86,
+                                  34,
+                                ),
+                              ),
+                              onPressed: () {
+                                addMatch();
+                                // Navigator.pop(context);
+                              },
+                              child: Text(
+                                widget.matchData == null ? '+ADD' : "update",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        Text("AwayTeam Name:", style: TextStyle(fontSize: 20)),
-                        TextField(controller: awayTeamController),
-                        Text("AwayTeam Logo:", style: TextStyle(fontSize: 20)),
-                        SizedBox(
-                          height: 50,
-                          width: double.infinity,
-                          child: DropdownButton(
-                            value: selectedAwayLogo,
-                            items: teams.map((logo) {
-                              return DropdownMenuItem(
-                                value: logo,
-                                child: Row(
-                                  children: [
-                                    Image.asset(
-                                      logo["logo"]!,
-                                      width: 24,
-                                      height: 24,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Center(
+                              child: Text(
+                                "ADD SCORE",
+                                style: TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              "HomeTeam Name:",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            TextField(controller: homeTeamController),
+                            Text(
+                              "HomeTeam Logo:",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            SizedBox(
+                              height: 50,
+                              width: double.infinity,
+                              child: DropdownButton(
+                                value: selectedHomeLogo,
+                                items: teams.map((logo) {
+                                  return DropdownMenuItem(
+                                    value: logo,
+                                    child: Row(
+                                      children: [
+                                        Image.asset(logo["logo"]!, height: 24),
+                                        const SizedBox(width: 8),
+                                        Text(logo["name"]!),
+                                      ],
                                     ),
-                                    const SizedBox(width: 8),
-                                    Text(logo["name"]!),
-                                  ],
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    selectedHomeLogo = value;
+                                  });
+                                },
+                                hint: Text(
+                                  "Choose a Team",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
-                              );
-                            }).toList(),
-                            onChanged: (value) {
-                              setState(() {
-                                selectedAwayLogo = value;
-                              });
-                            },
-                            hint: Text(
-                              "Choose a Team",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
                               ),
                             ),
-                          ),
+                            Text(
+                              "AwayTeam Name:",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            TextField(controller: awayTeamController),
+                            Text(
+                              "AwayTeam Logo:",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            SizedBox(
+                              height: 50,
+                              width: double.infinity,
+                              child: DropdownButton(
+                                value: selectedAwayLogo,
+                                items: teams.map((logo) {
+                                  return DropdownMenuItem(
+                                    value: logo,
+                                    child: Row(
+                                      children: [
+                                        Image.asset(
+                                          logo["logo"]!,
+                                          width: 24,
+                                          height: 24,
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Text(logo["name"]!),
+                                      ],
+                                    ),
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    selectedAwayLogo = value;
+                                  });
+                                },
+                                hint: Text(
+                                  "Choose a Team",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Text(
+                              "league Name:",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            TextField(controller: leagueController),
+                            Text("matchTime:", style: TextStyle(fontSize: 20)),
+                            TextField(controller: timeController),
+                            Text("score:", style: TextStyle(fontSize: 20)),
+                            TextField(controller: scoreController),
+                            Text("homeOdd:", style: TextStyle(fontSize: 20)),
+                            TextField(controller: homeOddController),
+                            Text("drawOdd:", style: TextStyle(fontSize: 20)),
+                            TextField(controller: drawOddController),
+                            Text("awayOdd:", style: TextStyle(fontSize: 20)),
+                            TextField(controller: awayOddController),
+                          ],
                         ),
-                        Text("league Name:", style: TextStyle(fontSize: 20)),
-                        TextField(controller: leagueController),
-                        Text("matchTime:", style: TextStyle(fontSize: 20)),
-                        TextField(controller: timeController),
-                        Text("score:", style: TextStyle(fontSize: 20)),
-                        TextField(controller: scoreController),
-                        Text("homeOdd:", style: TextStyle(fontSize: 20)),
-                        TextField(controller: homeOddController),
-                        Text("drawOdd:", style: TextStyle(fontSize: 20)),
-                        TextField(controller: drawOddController),
-                        Text("awayOdd:", style: TextStyle(fontSize: 20)),
-                        TextField(controller: awayOddController),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ),
